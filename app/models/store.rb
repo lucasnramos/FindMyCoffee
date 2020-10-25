@@ -9,4 +9,12 @@ class Store < ApplicationRecord
       ST_Distance(lonlat, 'POINT(%f %f)') < %d 
     } % [longitude, latitude, distance_km * 1000]) 
   }
+
+
+  def rating_average
+    # if now ratings available
+    return 0 if self.ratings.empty?
+    (self.ratings.sum(:value) / self.ratings.count).to_i
+  end
+
 end
